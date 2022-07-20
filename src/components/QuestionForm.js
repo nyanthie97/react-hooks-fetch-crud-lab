@@ -20,8 +20,25 @@ function QuestionForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(formData);
+    const formattedData={
+      prompt:formData.prompts,
+      // answers:[formData.answer1, formDat.answer2, formData.answer3, formData.answer4]
+      answers:Object.keys(formData).filter
+    (key=>key.includes("answer")).map()(key=>formData[key]),
+      correctIndex:formData.correctIndex
+    }
+    const serverOptions ={
+      method: "POST",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body:JSON.stringify(formattedData)
+    }
+    fetch("http://localhost:4000/questions",serverOptions)
+    .then(r=>r.json())
+    .then(newQuiz=>console.log(newQuiz))
   }
-
+  
   return (
     <section>
       <h1>New Question</h1>
@@ -88,6 +105,6 @@ function QuestionForm(props) {
       </form>
     </section>
   );
-}
+  }
 
 export default QuestionForm;
