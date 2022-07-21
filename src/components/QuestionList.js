@@ -6,7 +6,7 @@ function QuestionList() {
   //where are using the data => questionlist
   //useEffect 
   const [questions, setQuestions] =useState([])
-  useEffect(() =>{
+  useEffect(()=>{
     fetch("http://localhost:4000/questions")
     .then(r=>r.json())
     .then(data=>setQuestions(data))
